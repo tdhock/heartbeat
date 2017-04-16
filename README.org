@@ -1,0 +1,12 @@
+** 15 April 2017
+
+[[file:figure-heartbeat.R]] First viz of heartbeat audio data
+
+[[file:figure-heartbeat.pdf]]
+
+I had to install the following system libraries to get the R packages
+to install:
+
+#+BEGIN_SRC 
+sudo aptitude install fftw3-dev libsndfile-dev
+#+END_SRC
