@@ -1,3 +1,12 @@
+** 29 May 2017
+
+[[file:figure-heartbeat-unconstrained.pdf]] and
+[[file:figure-heartbeat-PeakSeg.pdf]] which show the advantage of PeakSeg
+constrained relative to the unconstrained maximum likelihood
+segmentation model. The PeakSeg model can always be used to label each
+data point as up (heartbeat) or down (between heartbeats), whereas the
+unconstrained model can not.
+
 ** 15 April 2017
 
 [[file:figure-heartbeat.R]] First viz of heartbeat audio data
