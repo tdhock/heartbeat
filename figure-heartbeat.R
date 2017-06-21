@@ -1,5 +1,6 @@
 works_with_R(
   "3.3.3",
+  data.table="1.10.4",
   seewave="2.0.5", tuneR="1.3.2",
   Segmentor3IsBack="2.0",
   "tdhock/coseg@49d056963d8c0eaebea22fef453842255a330a05",
@@ -16,8 +17,7 @@ some.sec <- seq(0, total.seconds, l=4000)
 some.env <- approx(first.sec, first.env, some.sec)$y
 plot(some.sec, some.env, type="l")
 
-## because the peak model is only Poisson loss implemented for the
-## Poisson loss...
+## because the peak model is only implemented for the Poisson loss...
 some.int <- as.integer(some.env)
 plot(some.sec, some.int, type="l")
 range(some.int)
@@ -166,7 +166,7 @@ peak.stats <- peaks[, data.table(
   max.peaks,
   mean.duration.seconds=mean(end.seconds-start.seconds)
   )]
-gg <- ggplot()+
+gg.data <- ggplot()+
   theme_bw()+
   ## bpm[, ggtitle(paste(
   ##   "Petit être, jeudi 13 avril 2017,",
@@ -175,12 +175,17 @@ gg <- ggplot()+
   ##   "battements par minute"))]+
   bpm[, ggtitle(paste(
     "Little being, Thurs 13 April 2017,",
-    beats, "beats in", round(total.seconds, 2),
+    beats, "beats in", round(total.seconds, 1),
     "seconds * 60 sec/min =", beats.per.minute,
     "beats per minute"))]+
   geom_line(aes(
     seconds, count),
-    data=count.dt)+
+            data=count.dt)
+pdf("figure-heartbeat-data-only.pdf", 10)
+print(gg.data)
+dev.off()
+
+gg <- gg.data+
   geom_segment(aes(
     start.seconds, mean,
     xend=end.seconds, yend=mean),
@@ -190,7 +195,7 @@ gg <- ggplot()+
   geom_text(aes(
     2, 22000, label=paste(
       "Most likely model with", max.peaks, "peaks,",
-      "mean peak duration =", round(mean.duration.seconds, 2),
+      "mean peak duration =", round(mean.duration.seconds, 3),
       "seconds")),
     color="red",
     data=peak.stats)+
