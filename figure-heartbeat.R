@@ -118,9 +118,10 @@ gg.unconstrained <- ggplot()+
     unconstrained="#377EB8",
     "#4DAF4A", "#984EA3", "#FF7F00", "#FFFF33", 
     "#A65628", "#F781BF", "#999999"))+
-  guides(color="none")
+  guides(color="none")+
+  theme(legend.position="bottom")
 print(gg.unconstrained)
-pdf("figure-heartbeat-unconstrained.pdf", 10)
+pdf("figure-heartbeat-unconstrained.pdf", 10, 4)
 print(gg.unconstrained)
 dev.off()
 
@@ -153,8 +154,9 @@ gg.PeakSeg <- gg.unconstrained+
     6, 20000, label=sprintf("PeakSeg PoissonLoss=%.0f", mean.PoissonLoss),
     color=model),
     hjust=1,
-    data=constrained.loss.dt)
-pdf("figure-heartbeat-PeakSeg.pdf", 10)
+    data=constrained.loss.dt)+
+  theme(legend.position="bottom")
+pdf("figure-heartbeat-PeakSeg.pdf", 10, 4)
 print(gg.PeakSeg)
 dev.off()
 
@@ -180,8 +182,10 @@ gg.data <- ggplot()+
     "beats per minute"))]+
   geom_line(aes(
     seconds, count),
-            data=count.dt)
-pdf("figure-heartbeat-data-only.pdf", 10)
+            data=count.dt)+
+  ylab("Amplitude (higher for louder heartbeat)")+
+  theme(legend.position="bottom")
+pdf("figure-heartbeat-data-only.pdf", 10, 4)
 print(gg.data)
 dev.off()
 
@@ -199,8 +203,9 @@ gg <- gg.data+
       "seconds")),
     color="red",
     data=peak.stats)+
-  ylab("Amplitude (higher for louder heartbeat)")
-pdf("figure-heartbeat.pdf", 10)
+  ylab("Amplitude (higher for louder heartbeat)")+
+  theme(legend.position="bottom")
+pdf("figure-heartbeat.pdf", 10, 4)
 print(gg)    
 dev.off()
 
